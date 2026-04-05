@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amanda Gonçalves Ramos – Assistente Administrativa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0A0F;
+  --bg2: #111118;
+  --bg3: #16161F;
+  --card: #1A1A25;
+  --border: rgba(255,255,255,0.07);
+  --accent: #7C6FCD;
+  --accent2: #A89FE0;
+  --accent-glow: rgba(124,111,205,0.25);
+  --gold: #E8C96A;
+  --gold-dim: rgba(232,201,106,0.15);
+  --text: #F0EFF8;
+  --text2: #9896B0;
+  --text3: #5C5A72;
+  --green: #4ECBA0;
+  --red: #E86A7C;
+  --blue: #6AB4E8;
+  --radius: 14px;
+  --nav-h: 64px;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CURSOR ─── */
+#cursor {
+  position: fixed; top:0; left:0; width:10px; height:10px;
+  background: var(--accent); border-radius:50%; pointer-events:none;
+  z-index:9999; transform: translate(-50%,-50%);
+  transition: transform 0.15s, background 0.2s;
+  mix-blend-mode: screen;
+}
+#cursor-ring {
+  position: fixed; top:0; left:0; width:36px; height:36px;
+  border: 1.5px solid rgba(124,111,205,0.5); border-radius:50%;
+  pointer-events:none; z-index:9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.35s cubic-bezier(.23,1,.32,1), width 0.3s, height 0.3s, border-color 0.3s;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top:0; left:0; right:0; height:var(--nav-h);
+  z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 clamp(20px,5vw,80px);
+  background: rgba(10,10,15,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+
+.nav-logo {
+  font-family:'Syne',sans-serif; font-weight:800; font-size:1.1rem;
+  color:var(--text); letter-spacing:-0.5px;
+}
+.nav-logo span { color: var(--accent); }
+
+.nav-links {
+  display:flex; gap:32px; list-style:none;
+}
+.nav-links a {
+  font-size:0.82rem; font-weight:500; color:var(--text2);
+  text-decoration:none; letter-spacing:0.5px;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:-4px; left:0; right:0;
+  height:1px; background:var(--accent); transform:scaleX(0);
+  transition: transform 0.25s;
+}
+.nav-links a:hover { color:var(--text); }
+.nav-links a:hover::after { transform:scaleX(1); }
+
+.nav-cta {
+  background: var(--accent); color:#fff;
+  font-size:0.8rem; font-weight:600; letter-spacing:0.3px;
+  padding:8px 20px; border-radius:50px; text-decoration:none;
+  transition: box-shadow 0.25s, transform 0.2s;
+}
+.nav-cta:hover {
+  box-shadow: 0 0 28px var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+/* ─── SECTIONS ─── */
+section { position:relative; z-index:1; }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display:flex; align-items:center; justify-content:center;
+  padding: calc(var(--nav-h) + 40px) clamp(20px,8vw,120px) 60px;
+  overflow:hidden;
+}
+
+.hero-bg-grid {
+  position:absolute; inset:0; pointer-events:none; opacity:0.15;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black, transparent);
+}
+
+.hero-orb {
+  position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none;
+}
+.hero-orb-1 {
+  width:500px; height:500px;
+  background: radial-gradient(circle, rgba(124,111,205,0.18), transparent 70%);
+  top:-100px; right:-80px;
+  animation: orb-drift 12s ease-in-out infinite;
+}
+.hero-orb-2 {
+  width:400px; height:400px;
+  background: radial-gradient(circle, rgba(232,201,106,0.1), transparent 70%);
+  bottom:-80px; left:-60px;
+  animation: orb-drift 15s ease-in-out infinite reverse;
+}
+@keyframes orb-drift {
+  0%,100%{ transform:translate(0,0); }
+  50%{ transform:translate(30px,-30px); }
+}
+
+.hero-inner {
+  display:grid; grid-template-columns:1fr 1fr;
+  align-items:center; gap:60px;
+  max-width:1100px; width:100%;
+}
+
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background: rgba(124,111,205,0.1);
+  border: 1px solid rgba(124,111,205,0.3);
+  border-radius:50px; padding:6px 14px;
+  font-size:0.75rem; font-weight:500; color:var(--accent2);
+  margin-bottom:20px;
+  animation: fade-up 0.7s 0.1s both;
+}
+.hero-badge-dot {
+  width:6px; height:6px; border-radius:50%;
+  background:var(--green);
+  box-shadow: 0 0 8px var(--green);
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%,100%{ opacity:1; }
+  50%{ opacity:0.4; }
+}
+
+.hero-title {
+  font-family:'Syne',sans-serif; font-size:clamp(2.4rem,5vw,3.8rem);
+  font-weight:800; line-height:1.08; letter-spacing:-1.5px;
+  animation: fade-up 0.7s 0.2s both;
+}
+.hero-title .line2 { color: var(--accent); }
+
+.hero-sub {
+  margin-top:18px; font-size:1rem; font-weight:300;
+  color:var(--text2); line-height:1.7; max-width:460px;
+  animation: fade-up 0.7s 0.35s both;
+}
+
+.hero-actions {
+  display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;
+  animation: fade-up 0.7s 0.45s both;
+}
+
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 26px; border-radius:50px;
+  font-size:0.85rem; font-weight:600; text-decoration:none;
+  transition: all 0.25s;
+}
+.btn-primary {
+  background:var(--accent); color:#fff;
+}
+.btn-primary:hover {
+  box-shadow:0 0 30px var(--accent-glow); transform:translateY(-2px);
+}
+.btn-outline {
+  border:1px solid var(--border); color:var(--text2);
+  background: rgba(255,255,255,0.03);
+}
+.btn-outline:hover {
+  border-color:var(--accent2); color:var(--text);
+  background: rgba(124,111,205,0.07);
+}
+.btn-whatsapp {
+  background: rgba(78,203,160,0.12);
+  border:1px solid rgba(78,203,160,0.3);
+  color:var(--green);
+}
+.btn-whatsapp:hover {
+  background: rgba(78,203,160,0.2);
+  box-shadow: 0 0 20px rgba(78,203,160,0.2);
+}
+
+.hero-photo-wrap {
+  display:flex; justify-content:center; align-items:center;
+  animation: fade-up 0.7s 0.25s both;
+}
+.hero-photo-ring {
+  position:relative; width:320px; height:320px;
+}
+.hero-photo-ring::before {
+  content:''; position:absolute; inset:-3px;
+  border-radius:50%;
+  background: conic-gradient(var(--accent), var(--gold), var(--accent));
+  animation: ring-spin 6s linear infinite;
+  z-index:0;
+}
+.hero-photo-ring::after {
+  content:''; position:absolute; inset:3px;
+  border-radius:50%; background:var(--bg); z-index:1;
+}
+@keyframes ring-spin { to{ transform:rotate(360deg); } }
+
+.hero-photo-ring img {
+  position:absolute; inset:8px;
+  width: calc(100% - 16px); height: calc(100% - 16px);
+  border-radius:50%; object-fit:cover; object-position: top;
+  z-index:2;
+}
+
+.hero-stats {
+  display:flex; gap:24px; margin-top:36px; flex-wrap:wrap;
+  animation: fade-up 0.7s 0.55s both;
+}
+.stat-box {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:12px; padding:14px 20px; text-align:center;
+}
+.stat-num {
+  font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:800;
+  color:var(--accent);
+}
+.stat-label { font-size:0.72rem; color:var(--text3); margin-top:2px; }
+
+/* ─── ABOUT ─── */
+#sobre {
+  padding: 100px clamp(20px,8vw,120px);
+  background: var(--bg2);
+}
+.section-tag {
+  font-size:0.72rem; font-weight:600; letter-spacing:2.5px;
+  text-transform:uppercase; color:var(--accent); margin-bottom:12px;
+}
+.section-title {
+  font-family:'Syne',sans-serif; font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:800; letter-spacing:-1px; margin-bottom:40px;
+}
+
+.about-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:start;
+}
+.about-text { font-size:0.95rem; color:var(--text2); line-height:1.85; }
+.about-text p + p { margin-top:16px; }
+.about-text strong { color:var(--text); font-weight:500; }
+
+.about-cards {
+  display:grid; grid-template-columns:1fr 1fr; gap:14px;
+}
+.about-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:20px;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.about-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.about-card-icon {
+  font-size:1.5rem; margin-bottom:10px;
+}
+.about-card-title {
+  font-family:'Syne',sans-serif; font-size:0.95rem; font-weight:700;
+  margin-bottom:4px;
+}
+.about-card-desc { font-size:0.8rem; color:var(--text3); line-height:1.6; }
+
+/* ─── SKILLS ─── */
+#habilidades {
+  padding: 100px clamp(20px,8vw,120px);
+}
+.skills-layout {
+  display:grid; grid-template-columns:1fr 1fr; gap:60px;
+}
+.skills-bars { }
+.skill-row { margin-bottom:20px; }
+.skill-info {
+  display:flex; justify-content:space-between;
+  margin-bottom:7px;
+}
+.skill-name { font-size:0.85rem; font-weight:500; color:var(--text); }
+.skill-pct { font-size:0.8rem; color:var(--accent); font-weight:600; }
+.skill-track {
+  height:6px; background:var(--card); border-radius:10px; overflow:hidden;
+}
+.skill-fill {
+  height:100%; border-radius:10px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width:0; transition: width 1.4s cubic-bezier(.23,1,.32,1);
+}
+
+/* RADAR / CHART */
+.skills-chart-wrap {
+  display:flex; flex-direction:column; align-items:center; gap:20px;
+}
+.radar-title {
+  font-size:0.78rem; color:var(--text3); letter-spacing:1px;
+  text-transform:uppercase;
+}
+canvas#radarChart {
+  max-width:300px; max-height:300px;
+}
+
+.skills-tags {
+  display:flex; flex-wrap:wrap; gap:8px; margin-top:24px;
+}
+.skill-tag {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:50px; padding:5px 14px;
+  font-size:0.78rem; color:var(--text2);
+  transition: all 0.2s;
+}
+.skill-tag:hover {
+  border-color:var(--accent); color:var(--accent);
+  background: rgba(124,111,205,0.08);
+}
+
+/* ─── EXPERIÊNCIA ─── */
+#experiencia {
+  padding: 100px clamp(20px,8vw,120px);
+  background: var(--bg2);
+}
+.timeline {
+  position:relative; padding-left:30px;
+}
+.timeline::before {
+  content:''; position:absolute; left:8px; top:0; bottom:0;
+  width:1px; background: linear-gradient(to bottom, var(--accent), transparent);
+}
+.tl-item {
+  position:relative; margin-bottom:40px;
+  opacity:0; transform:translateX(-20px);
+  transition: opacity 0.6s, transform 0.6s;
+}
+.tl-item.visible {
+  opacity:1; transform:translateX(0);
+}
+.tl-dot {
+  position:absolute; left:-26px; top:6px;
+  width:14px; height:14px; border-radius:50%;
+  background:var(--accent); border:2px solid var(--bg2);
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+.tl-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:24px 26px;
+  transition: border-color 0.25s;
+}
+.tl-card:hover { border-color:rgba(124,111,205,0.3); }
+.tl-header {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  margin-bottom:4px; gap:12px;
+}
+.tl-company {
+  font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700;
+}
+.tl-period {
+  font-size:0.75rem; color:var(--accent); font-weight:600;
+  white-space:nowrap;
+  background:rgba(124,111,205,0.1); padding:3px 10px;
+  border-radius:50px; border:1px solid rgba(124,111,205,0.2);
+}
+.tl-sector {
+  font-size:0.78rem; color:var(--text3); margin-bottom:16px; font-style:italic;
+}
+.tl-roles { display:grid; gap:10px; }
+.tl-role-name {
+  font-size:0.82rem; font-weight:600; color:var(--accent2);
+  margin-bottom:2px;
+}
+.tl-role-desc {
+  font-size:0.82rem; color:var(--text3); line-height:1.65;
+}
+
+/* ─── PROJETOS ─── */
+#projetos {
+  padding: 100px clamp(20px,8vw,120px);
+}
+.projects-grid {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;
+}
+.project-card {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:28px; position:relative;
+  overflow:hidden; transition: all 0.3s;
+  opacity:0; transform:translateY(20px);
+  transition: opacity 0.6s, transform 0.6s, border-color 0.25s;
+}
+.project-card.visible {
+  opacity:1; transform:translateY(0);
+}
+.project-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--accent), var(--gold));
+  transform:scaleX(0); transform-origin:left;
+  transition:transform 0.35s;
+}
+.project-card:hover::before { transform:scaleX(1); }
+.project-card:hover { border-color:rgba(124,111,205,0.3); transform:translateY(-4px); }
+
+.project-icon {
+  width:42px; height:42px; border-radius:10px;
+  background:rgba(124,111,205,0.12); border:1px solid rgba(124,111,205,0.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.2rem; margin-bottom:16px;
+}
+.project-title {
+  font-family:'Syne',sans-serif; font-size:1rem; font-weight:700;
+  margin-bottom:8px;
+}
+.project-desc {
+  font-size:0.82rem; color:var(--text3); line-height:1.7; margin-bottom:16px;
+}
+.project-tags {
+  display:flex; flex-wrap:wrap; gap:6px;
+}
+.project-tag {
+  font-size:0.7rem; padding:3px 10px;
+  background:rgba(255,255,255,0.04); border:1px solid var(--border);
+  border-radius:50px; color:var(--text3);
+}
+
+/* ─── CONTATO ─── */
+#contato {
+  padding: 100px clamp(20px,8vw,120px);
+  background:var(--bg2);
+}
+.contact-grid {
+  display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center;
+}
+.contact-left p {
+  font-size:0.95rem; color:var(--text2); line-height:1.8; margin-bottom:32px;
+}
+.contact-links {
+  display:flex; flex-direction:column; gap:14px;
+}
+.contact-link {
+  display:flex; align-items:center; gap:14px;
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:16px 20px; text-decoration:none;
+  transition:all 0.25s; color:var(--text);
+}
+.contact-link:hover {
+  border-color:var(--accent); transform:translateX(4px);
+  background:rgba(124,111,205,0.05);
+}
+.contact-link-icon {
+  width:40px; height:40px; border-radius:10px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0;
+}
+.cl-wa .contact-link-icon { background:rgba(78,203,160,0.12); }
+.cl-li .contact-link-icon { background:rgba(106,180,232,0.12); }
+.cl-em .contact-link-icon { background:rgba(232,201,106,0.12); }
+.contact-link-text { font-size:0.82rem; }
+.contact-link-label { font-weight:600; font-size:0.9rem; }
+.contact-link-val { color:var(--text3); font-size:0.8rem; }
+
+.contact-right {
+  background:var(--card); border:1px solid var(--border);
+  border-radius:var(--radius); padding:32px; text-align:center;
+}
+.contact-right h3 {
+  font-family:'Syne',sans-serif; font-size:1.2rem; font-weight:700;
+  margin-bottom:8px;
+}
+.contact-right p {
+  font-size:0.85rem; color:var(--text3); margin-bottom:24px; line-height:1.7;
+}
+.download-btn {
+  display:inline-flex; align-items:center; gap:10px;
+  background: linear-gradient(135deg, var(--accent), #9B8FDC);
+  color:#fff; text-decoration:none;
+  padding:14px 28px; border-radius:50px;
+  font-weight:600; font-size:0.88rem;
+  transition:all 0.25s;
+  box-shadow: 0 8px 32px rgba(124,111,205,0.3);
+}
+.download-btn:hover {
+  transform:translateY(-2px);
+  box-shadow: 0 12px 40px rgba(124,111,205,0.45);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top:1px solid var(--border);
+  padding:28px clamp(20px,5vw,80px);
+  display:flex; justify-content:space-between; align-items:center;
+  flex-wrap:wrap; gap:12px;
+  font-size:0.78rem; color:var(--text3);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .hero-inner { grid-template-columns:1fr; text-align:center; }
+  .hero-photo-wrap { order:-1; }
+  .hero-photo-ring { width:220px; height:220px; }
+  .hero-actions { justify-content:center; }
+  .hero-stats { justify-content:center; }
+  .about-grid, .skills-layout, .contact-grid { grid-template-columns:1fr; }
+  .about-cards { grid-template-columns:1fr 1fr; }
+  .nav-links { display:none; }
+}
+@media(max-width:600px){
+  .about-cards { grid-template-columns:1fr; }
+  .hero-actions { flex-direction:column; }
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--bg); }
+::-webkit-scrollbar-thumb { background:var(--accent); border-radius:10px; }
+
+/* ─── MOBILE NAV ICON ─── */
+.hamburger {
+  display:none; flex-direction:column; gap:5px;
+  cursor:pointer; padding:8px;
+}
+.hamburger span {
+  display:block; width:22px; height:2px;
+  background:var(--text2); border-radius:2px; transition:all 0.3s;
+}
+@media(max-width:900px){ .hamburger{ display:flex; } }
+
+.mob-menu {
+  display:none; position:fixed; inset:0; background:rgba(10,10,15,0.97);
+  z-index:99; flex-direction:column; align-items:center; justify-content:center;
+  gap:32px;
+}
+.mob-menu.open { display:flex; }
+.mob-menu a {
+  font-family:'Syne',sans-serif; font-size:1.6rem; font-weight:700;
+  color:var(--text); text-decoration:none;
+  transition:color 0.2s;
+}
+.mob-menu a:hover { color:var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#sobre" onclick="closeMob()">Sobre</a>
+  <a href="#habilidades" onclick="closeMob()">Habilidades</a>
+  <a href="#experiencia" onclick="closeMob()">Experiência</a>
+  <a href="#projetos" onclick="closeMob()">Projetos</a>
+  <a href="#contato" onclick="closeMob()">Contato</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Amanda<span>.</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#experiencia">Experiência</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a class="nav-cta" href="#contato">Fale comigo</a>
+  <div class="hamburger" onclick="toggleMob()" id="ham">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- ══════════ HERO ══════════ -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Disponível para novas oportunidades
+      </div>
+
+      <h1 class="hero-title">
+        Amanda<br>
+        <span class="line2">Gonçalves</span><br>
+        Ramos
+      </h1>
+
+      <p class="hero-sub">
+        Assistente Administrativa com experiência em rotinas operacionais, controle de planilhas, gestão de documentos e atendimento. Cursando Sistemas de Informação — onde tecnologia encontra gestão.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contato">Entrar em contato</a>
+        <a class="btn btn-whatsapp" href="https://wa.me/5561981146814?text=Olá+Amanda%2C+vi+seu+portfólio+e+gostaria+de+conversar!" target="_blank">
+          💬 WhatsApp
+        </a>
+        <a class="btn btn-outline" href="#sobre">Ver mais</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Anos de experiência</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Cursos em 2025–26</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">BSB</div>
+          <div class="stat-label">Brasília, DF</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrap">
+      <div class="hero-photo-ring">
+        <img src="https://drive.google.com/uc?export=view&id=18Wvu5Gfn1p6i2GZ0aBYe5behfGVWIrDW"
+             onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22><rect width=%22300%22 height=%22300%22 fill=%22%231A1A25%22/><text x=%22150%22 y=%22155%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22%237C6FCD%22>AG</text></svg>'"
+             alt="Amanda Gonçalves Ramos">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ SOBRE ══════════ -->
+<section id="sobre">
+  <div class="section-tag">// Sobre mim</div>
+  <h2 class="section-title">Quem sou eu</h2>
+
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Sou Amanda Gonçalves Ramos, moradora de <strong>Águas Claras, Brasília/DF</strong>, apaixonada por organização, processos e tecnologia. Ao longo de quase 3 anos na NYS Brand Store, atuei simultaneamente em funções <strong>administrativas, financeiras e operacionais</strong> — o que me deu visão ampla de como uma empresa funciona por dentro.</p>
+      <p>Atualmente curso <strong>Sistemas de Informação</strong> no Centro Universitário Unieuro, o que amplia minha capacidade de <strong>assimilar sistemas, ferramentas digitais e dados</strong> com rapidez e consistência.</p>
+      <p>Busco uma oportunidade onde possa contribuir com <strong>eficiência, proatividade e vontade genuína de crescer</strong> junto com a equipe e a empresa.</p>
+    </div>
+
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">📋</div>
+        <div class="about-card-title">Organização</div>
+        <div class="about-card-desc">Controle de documentos, inventários e processos internos com rigor e precisão.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📊</div>
+        <div class="about-card-title">Dados & Planilhas</div>
+        <div class="about-card-desc">Pacote Office e Power BI para análise e visualização de informações.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">💬</div>
+        <div class="about-card-title">Comunicação</div>
+        <div class="about-card-desc">Atendimento humanizado via WhatsApp, redes sociais e presencial.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">⚡</div>
+        <div class="about-card-title">Proatividade</div>
+        <div class="about-card-desc">Antecipo demandas e entrego resultados sem precisar ser solicitada.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HABILIDADES ══════════ -->
+<section id="habilidades">
+  <div class="section-tag">// Habilidades</div>
+  <h2 class="section-title">O que eu sei fazer</h2>
+
+  <div class="skills-layout">
+    <div class="skills-bars">
+      <div class="skill-row" data-pct="90">
+        <div class="skill-info">
+          <span class="skill-name">Pacote Office (Word, Excel, PowerPoint)</span>
+          <span class="skill-pct">90%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-row" data-pct="85">
+        <div class="skill-info">
+          <span class="skill-name">Organização & Gestão de Documentos</span>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-row" data-pct="82">
+        <div class="skill-info">
+          <span class="skill-name">Atendimento ao Cliente</span>
+          <span class="skill-pct">82%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-row" data-pct="78">
+        <div class="skill-info">
+          <span class="skill-name">Controle Financeiro & Caixa</span>
+          <span class="skill-pct">78%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-row" data-pct="72">
+        <div class="skill-info">
+          <span class="skill-name">Gestão de Estoque & Logística</span>
+          <span class="skill-pct">72%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-row" data-pct="60">
+        <div class="skill-info">
+          <span class="skill-name">Power BI & Visualização de Dados</span>
+          <span class="skill-pct">60%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+      <div class="skill-row" data-pct="55">
+        <div class="skill-info">
+          <span class="skill-name">Gestão Ágil de Projetos</span>
+          <span class="skill-pct">55%</span>
+        </div>
+        <div class="skill-track"><div class="skill-fill"></div></div>
+      </div>
+
+      <div class="skills-tags">
+        <span class="skill-tag">Comunicação Interpessoal</span>
+        <span class="skill-tag">Proatividade</span>
+        <span class="skill-tag">Trabalho em Equipe</span>
+        <span class="skill-tag">Adaptabilidade</span>
+        <span class="skill-tag">Fácil Aprendizado</span>
+        <span class="skill-tag">Modelagem de Dados</span>
+        <span class="skill-tag">Inglês Básico</span>
+        <span class="skill-tag">Cybersecurity</span>
+      </div>
+    </div>
+
+    <div class="skills-chart-wrap">
+      <div class="radar-title">Mapa de Competências</div>
+      <canvas id="radarChart" width="300" height="300"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ EXPERIÊNCIA ══════════ -->
+<section id="experiencia">
+  <div class="section-tag">// Experiência</div>
+  <h2 class="section-title">Jornada profissional</h2>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <div class="tl-company">NYS Brand Store</div>
+          <div class="tl-period">Fev/2023 – Nov/2025</div>
+        </div>
+        <div class="tl-sector">Varejo · Moda Feminina · Brasília, DF</div>
+        <div class="tl-roles">
+          <div>
+            <div class="tl-role-name">🗂 Assistente Administrativa</div>
+            <div class="tl-role-desc">Planejamento e execução de atividades conforme prazos, suporte às operações do setor, organização de processos internos e garantia de eficiência nas rotinas administrativas da empresa.</div>
+          </div>
+          <div>
+            <div class="tl-role-name">💰 Operadora de Caixa</div>
+            <div class="tl-role-desc">Abertura e fechamento de caixa com conferência de numerário e conciliação de valores. Registro de produtos e finalização de pagamentos presenciais e remotos com precisão.</div>
+          </div>
+          <div>
+            <div class="tl-role-name">📦 Controle de Estoque</div>
+            <div class="tl-role-desc">Organização de inventários, conferência de notas fiscais e operação de sistemas de logística desde o recebimento até a expedição, evitando perdas e mantendo dados atualizados.</div>
+          </div>
+          <div>
+            <div class="tl-role-name">📱 Atendimento ao Cliente</div>
+            <div class="tl-role-desc">Atendimento humanizado via WhatsApp comercial, Instagram e presencial, solucionando demandas com agilidade e comunicação clara e eficiente.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot" style="background:var(--gold)"></div>
+      <div class="tl-card">
+        <div class="tl-header">
+          <div class="tl-company">Centro Universitário Unieuro</div>
+          <div class="tl-period">2024 – 2027</div>
+        </div>
+        <div class="tl-sector">Formação Acadêmica · Período Noturno · Em andamento</div>
+        <div class="tl-roles">
+          <div>
+            <div class="tl-role-name">🎓 Sistemas de Informação</div>
+            <div class="tl-role-desc">Graduação com foco em tecnologia, gestão de dados, análise de sistemas e infraestrutura digital — competências que se aplicam diretamente ao ambiente corporativo moderno.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROJETOS ══════════ -->
+<section id="projetos">
+  <div class="section-tag">// Projetos & Formações</div>
+  <h2 class="section-title">Desenvolvimento contínuo</h2>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-icon">📊</div>
+      <div class="project-title">Introdução ao Power BI</div>
+      <div class="project-desc">Criação de dashboards interativos e visualização de dados para tomada de decisão baseada em indicadores — habilidade diretamente aplicável ao controle de planilhas e relatórios.</div>
+      <div class="project-tags">
+        <span class="project-tag">DIO · 2025</span>
+        <span class="project-tag">Data Viz</span>
+        <span class="project-tag">Dashboards</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🗄️</div>
+      <div class="project-title">Modelagem de Dados</div>
+      <div class="project-desc">Fundamentos de estruturação e organização de dados, bancos relacionais e boas práticas de armazenamento de informações em ambiente corporativo.</div>
+      <div class="project-tags">
+        <span class="project-tag">Fundação Bradesco · 2026</span>
+        <span class="project-tag">Banco de Dados</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🚀</div>
+      <div class="project-title">Gestão Ágil de Projetos</div>
+      <div class="project-desc">Metodologias ágeis (Scrum/Kanban) aplicadas à gestão de tarefas, priorização de demandas e organização de fluxos de trabalho em equipe.</div>
+      <div class="project-tags">
+        <span class="project-tag">Ampli</span>
+        <span class="project-tag">Scrum</span>
+        <span class="project-tag">Kanban</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🔐</div>
+      <div class="project-title">Cybersecurity</div>
+      <div class="project-desc">Noções de segurança da informação, proteção de dados corporativos, boas práticas digitais e conformidade com políticas de privacidade — essencial no ambiente de trabalho moderno.</div>
+      <div class="project-tags">
+        <span class="project-tag">FIAP · 2025</span>
+        <span class="project-tag">Segurança Digital</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-icon">🛍️</div>
+      <div class="project-title">Gestão Multifuncional – NYS</div>
+      <div class="project-desc">Atuação simultânea em funções administrativas, financeiras e operacionais por quase 3 anos, desenvolvendo visão 360° dos processos de uma empresa de varejo.</div>
+      <div class="project-tags">
+        <span class="project-tag">2023–2025</span>
+        <span class="project-tag">Varejo</span>
+        <span class="project-tag">Multitarefas</span>
+      </div>
+    </div>
+
+    <div class="project-card" style="border-style:dashed; display:flex; align-items:center; justify-content:center; flex-direction:column; text-align:center; gap:10px; min-height:180px;">
+      <div style="font-size:1.8rem;">✨</div>
+      <div class="project-title" style="font-size:0.9rem;">Em construção</div>
+      <div class="project-desc" style="font-size:0.78rem;">Novos projetos e certificações em desenvolvimento. Sempre aprendendo.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTATO ══════════ -->
+<section id="contato">
+  <div class="section-tag">// Contato</div>
+  <h2 class="section-title">Vamos conversar?</h2>
+
+  <div class="contact-grid">
+    <div class="contact-left">
+      <p>Estou disponível para oportunidades em <strong style="color:var(--text)">Brasília/DF</strong> e aberta a propostas remotas. Se você tem uma vaga ou quer saber mais sobre meu trabalho, fale comigo diretamente.</p>
+
+      <div class="contact-links">
+        <a class="contact-link cl-wa" href="https://wa.me/5561981146814?text=Olá+Amanda%2C+vi+seu+portfólio+e+gostaria+de+conversar!" target="_blank">
+          <div class="contact-link-icon">💬</div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">WhatsApp</div>
+            <div class="contact-link-val">(61) 98114-6814</div>
+          </div>
+          <span style="margin-left:auto;color:var(--text3);font-size:0.8rem">→</span>
+        </a>
+
+        <a class="contact-link cl-li" href="https://www.linkedin.com/in/amanda-ramos-8310b0374" target="_blank">
+          <div class="contact-link-icon">💼</div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-val">Amanda Gonçalves Ramos</div>
+          </div>
+          <span style="margin-left:auto;color:var(--text3);font-size:0.8rem">→</span>
+        </a>
+
+        <a class="contact-link cl-em" href="mailto:amanda2708mm@gmail.com">
+          <div class="contact-link-icon">✉️</div>
+          <div class="contact-link-text">
+            <div class="contact-link-label">E-mail</div>
+            <div class="contact-link-val">amanda2708mm@gmail.com</div>
+          </div>
+          <span style="margin-left:auto;color:var(--text3);font-size:0.8rem">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <h3>Baixar Currículo</h3>
+      <p>Versão PDF completa, pronta para enviar para recrutadores e processos seletivos.</p>
+      <a class="download-btn" href="https://drive.google.com/uc?export=download&id=1WFVdmFKlcWmhPLwFOGpEhpQZ5Io5J4-B" target="_blank">
+        ⬇ Baixar Currículo PDF
+      </a>
+      <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+        <div style="font-size:0.78rem;color:var(--text3);margin-bottom:8px;">Localização</div>
+        <div style="font-size:0.88rem;color:var(--text2)">📍 Águas Claras – Brasília, DF</div>
+        <div style="font-size:0.78rem;color:var(--text3);margin-top:12px;">Disponibilidade</div>
+        <div style="font-size:0.88rem;color:var(--green);margin-top:4px;">● Disponível imediatamente</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>© 2025 Amanda Gonçalves Ramos — Portfólio Profissional</div>
+  <div style="display:flex;gap:20px">
+    <a href="https://wa.me/5561981146814" target="_blank" style="color:var(--text3);text-decoration:none">WhatsApp</a>
+    <a href="mailto:amanda2708mm@gmail.com" style="color:var(--text3);text-decoration:none">E-mail</a>
+    <a href="https://www.linkedin.com/in/amanda-ramos-8310b0374" target="_blank" style="color:var(--text3);text-decoration:none">LinkedIn</a>
+  </div>
+</footer>
+
+<!-- CHART.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{
+  mx=e.clientX; my=e.clientY;
+  cursor.style.left = mx+'px'; cursor.style.top = my+'px';
+});
+function animRing(){
+  rx += (mx-rx)*0.12; ry += (my-ry)*0.12;
+  ring.style.left = rx+'px'; ring.style.top = ry+'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    ring.style.width='60px'; ring.style.height='60px';
+    ring.style.borderColor='rgba(124,111,205,0.8)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    ring.style.width='36px'; ring.style.height='36px';
+    ring.style.borderColor='rgba(124,111,205,0.5)';
+  });
+});
+
+// ─── MOBILE MENU ───
+function toggleMob(){
+  document.getElementById('mobMenu').classList.toggle('open');
+}
+function closeMob(){
+  document.getElementById('mobMenu').classList.remove('open');
+}
+
+// ─── SCROLL ANIMATIONS ───
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('visible');
+  });
+},{threshold:0.15});
+document.querySelectorAll('.tl-item, .project-card').forEach(el=>obs.observe(el));
+
+// ─── SKILL BARS ───
+const barObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const pct = e.target.dataset.pct;
+      e.target.querySelector('.skill-fill').style.width = pct+'%';
+    }
+  });
+},{threshold:0.3});
+document.querySelectorAll('.skill-row').forEach(el=>barObs.observe(el));
+
+// ─── RADAR CHART ───
+const radarCtx = document.getElementById('radarChart').getContext('2d');
+new Chart(radarCtx,{
+  type:'radar',
+  data:{
+    labels:['Office & Planilhas','Organização','Atendimento','Financeiro','Estoque','Power BI','Comunicação','Proatividade'],
+    datasets:[{
+      label:'Competência',
+      data:[90,85,82,78,72,60,88,92],
+      backgroundColor:'rgba(124,111,205,0.15)',
+      borderColor:'rgba(124,111,205,0.8)',
+      borderWidth:2,
+      pointBackgroundColor:'rgba(168,159,224,1)',
+      pointBorderColor:'transparent',
+      pointRadius:4,
+      pointHoverRadius:6,
+    }]
+  },
+  options:{
+    responsive:true,
+    animation:{ duration:1800, easing:'easeInOutQuart' },
+    plugins:{ legend:{ display:false } },
+    scales:{
+      r:{
+        min:0, max:100,
+        ticks:{
+          display:false,
+          stepSize:25,
+        },
+        grid:{ color:'rgba(255,255,255,0.06)' },
+        angleLines:{ color:'rgba(255,255,255,0.06)' },
+        pointLabels:{
+          color:'rgba(152,150,176,0.9)',
+          font:{ size:10, family:"'DM Sans',sans-serif" }
+        }
+      }
+    }
+  }
+});
+
+// ─── SECTION FADE IN ───
+const secObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+    }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.section-tag,.section-title,.about-text,.about-card,.contact-left,.contact-right').forEach(el=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(20px)';
+  el.style.transition='opacity 0.7s ease, transform 0.7s ease';
+  secObs.observe(el);
+});
+
+// ─── STAGGER ABOUT CARDS ───
+document.querySelectorAll('.about-card').forEach((c,i)=>{
+  c.style.transitionDelay = (i*0.08)+'s';
+});
+document.querySelectorAll('.project-card').forEach((c,i)=>{
+  c.style.transitionDelay = (i*0.07)+'s';
+});
+</script>
+</body>
+</html>
